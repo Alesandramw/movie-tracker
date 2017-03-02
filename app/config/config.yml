@@ -57,9 +57,17 @@ doctrine:
         #     path:     "%database_path%"
 
     orm:
-        auto_generate_proxy_classes: "%kernel.debug%"
-        naming_strategy: doctrine.orm.naming_strategy.underscore
-        auto_mapping: true
+        auto_generate_proxy_classes: '%kernel.debug%'
+        entity_managers:
+            default:
+                auto_mapping: true
+                mappings:
+                    MovieTrackerBundle:
+                        type: annotation
+                        dir: ORM/Model
+                        prefix: MovieTrackerBundle\ORM\Model
+                        alias: MovieTracker
+                naming_strategy: doctrine.orm.naming_strategy.underscore
 
 # Swiftmailer Configuration
 swiftmailer:
