@@ -1,0 +1,26 @@
+{% extends 'MovieTrackerBundle:Admin:base.html.twig' %}
+
+{% block page_title %}Manage Movies{% endblock page_title %}
+
+{% block page_body %}
+<h2>Manage Movies</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Director</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for movie in movies %}
+            <tr>
+                <td><a href="{{ path('admin_view_movie', { 'movie_id': movie.id }) }}">{{ movie.title }}</a></td>
+                <td>{{ movie.director }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock page_body %}
+
