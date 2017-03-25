@@ -4,6 +4,9 @@
 
 {% block page_body %}
 <h2>Edit Movie</h2>
-{% form_theme movieForm 'bootstrap_3_horizontal_layout.html.twig' %}
+{% form_theme movieForm with [
+    'bootstrap_3_horizontal_layout.html.twig',
+    'MovieTrackerBundle:theme\\form:horizontal.html.twig'
+] %}
 {{ form(movieForm) }}
 {% endblock page_body %}

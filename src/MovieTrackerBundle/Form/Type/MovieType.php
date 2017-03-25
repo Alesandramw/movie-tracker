@@ -2,8 +2,13 @@
 
 namespace MovieTrackerBundle\Form\Type;
 
+use MovieTrackerBundle\Form\Extension\Type\DeleteType;
+use MovieTrackerBundle\ORM\Model\Movie;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -32,6 +37,29 @@ class MovieType extends AbstractType
                 )
             )
             ->add(
+                'rating',
+                ChoiceType::class,
+                array(
+                    'choices' => Movie::getValidRatings(),
+                    'choice_label' => function($value) {
+                        return $value;
+                    }
+                )
+            )
+            ->add(
+                'date',
+                DateType::class,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'yyyy-MM-dd'
+
+                )
+            )
+            ->add(
+                'thoughts',
+                TextareaType::class
+            )
+            ->add(
                 'submit',
                 SubmitType::class,
                 array(
@@ -39,6 +67,19 @@ class MovieType extends AbstractType
                 )
             )
         ;
+         if ($movie->getId()) {
+
+            $builder->add(
+                'delete',
+                DeleteType::class,
+                array(
+                    'confirmation' => true,
+                    'confirmation_message' => 'Are you sure you would like to delete this movie?',
+                    'label' => 'Delete'
+                )
+            );
+
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)

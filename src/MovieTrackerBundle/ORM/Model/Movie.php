@@ -171,4 +171,21 @@ class Movie
     {
         return $this->thoughts;
     }
+
+    /**
+     * Get an array of all valid movie ratings.
+     *
+     * @return array
+     */
+    public static function getValidRatings()
+    {
+        $ratings = array();
+
+        for ($i = 10; $i > 5; $i -= 0.5)
+        {
+            $ratings[] = $i;
+        }
+
+        return $ratings;
+    }
 }

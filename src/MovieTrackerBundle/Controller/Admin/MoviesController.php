@@ -32,6 +32,8 @@ class MoviesController extends Controller
 
             $entityManager->persist($movie);
             $entityManager->flush();
+            $this->addFlash('notice', sprintf('The movie %s has been added.', $movie->getTitle()));
+            return $this->redirectToRoute('admin_manage_movies');
 
         }
 
@@ -65,8 +67,53 @@ class MoviesController extends Controller
     {
         $movieForm = $this->createForm(MovieType::class, $movie);
 
+        $movieForm->handleRequest($request);
+
+        // if we are deleting the page
+        if ($movieForm->isSubmitted() && $movieForm->has('delete') && $movieForm->get('delete')->isClicked()) {
+
+            $movieTitle = $movie->getTitle();
+
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $entityManager->remove($movie);
+            $entityManager->flush();
+
+            $this->addFlash('notice', sprintf('The movie %s has been removed.', $movieTitle));
+
+            return $this->redirectToRoute('admin_manage_movies');
+
+        }
+
+        if ($movieForm->isSubmitted() && $movieForm->isValid()) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $entityManager->flush();
+            $this->addFlash('notice', sprintf('The movie %s has been updated.', $movie->getTitle()));
+
+        }
+
         return array(
             'movieForm' => $movieForm->createView()
         );
+    }
+
+    /**
+     * @Route("/delete/{movie_id}", name="admin_delete_movie")
+     * @ParamConverter("movie", class="MovieTracker:Movie", options={"id"="movie_id"})
+     * @Template()
+     */
+    public function deleteAction(Movie $movie)
+    {
+
+        $entityManager = $this->getDoctrine()->getEntityManager();
+        //$entities = $entityManager->getRepository('MovieTracker:Movie')->find($movie);
+
+        $entityManager->remove($movie);
+        $entityManager->flush();
+
+        $this->addFlash('notice', sprintf('The movie %s has been removed.', $movie->getTitle()));
+            return $this->redirectToRoute('admin_manage_movies');
     }
 }
