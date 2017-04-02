@@ -28,7 +28,7 @@ class Movie
     private $director;
 
     /**
-     * @ORM\Column(name="rating", type="integer")
+     * @ORM\Column(name="rating", type="integer", nullable=true)
      */
     private $rating;
 
@@ -38,9 +38,14 @@ class Movie
     private $date;
 
     /**
-     * @ORM\Column(name="thoughts", type="text", length=65535)
+     * @ORM\Column(name="thoughts", type="text", length=65535, nullable=true)
      */
     private $thoughts;
+
+    /**
+    * @ORM\Column(name="imdbId", type="string", length=255, nullable=true)
+    */
+    private $imdbId;
 
     /**
      * Get id
@@ -187,5 +192,29 @@ class Movie
         }
 
         return $ratings;
+    }
+
+    /**
+     * Set imdbId
+     *
+     * @param string $imdbId
+     *
+     * @return Movie
+     */
+    public function setImdbId($imdbId)
+    {
+        $this->imdbId = $imdbId;
+
+        return $this;
+    }
+
+    /**
+     * Get imdbId
+     *
+     * @return string
+     */
+    public function getImdbId()
+    {
+        return $this->imdbId;
     }
 }

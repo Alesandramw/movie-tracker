@@ -12,23 +12,20 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/year/{year}", name="public_by_year")
+     * @Route("/", name="public_home")
      * @Template()
      */
-    public function indexAction(Request $request)
+    public function homeAction(Request $request, $year = '')
     {
-        // replace this example code with whatever you need
-        return $this->render('MovieTrackerBundle:default/Movies:index.html.twig');
-    }
-
-    /**
-     * @Route("/view/{year}", name="year_movies")
-     * @Template()
-     */
-    public function yearAction(Request $request)
-    {
-
-        $movies = $this->getDoctrine()->getManager()->getRepository('MovieTracker:Movie')->findAll();
+        if ($year != '')
+        {
+            $movies = $this->getDoctrine()->getManager()->createQuery(sprintf("SELECT m FROM MovieTracker:Movie m WHERE m.date >= '%d-01-01' AND m.date <= '%d-12-31'", $year, $year))->getResult();
+        }
+        else
+        {
+            $movies = $this->getDoctrine()->getManager()->getRepository('MovieTracker:Movie')->findBy(array(), array('date' => 'DESC'));
+        }
 
         return array(
             'movies' => $movies

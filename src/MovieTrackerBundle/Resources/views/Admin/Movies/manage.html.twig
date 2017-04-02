@@ -10,6 +10,7 @@
         <tr>
             <th>Title</th>
             <th>Director</th>
+            <th>IMDB ID</th>
         </tr>
     </thead>
     <tbody>
@@ -17,6 +18,7 @@
             <tr>
                 <td><a href="{{ path('admin_view_movie', { 'movie_id': movie.id }) }}">{{ movie.title }}</a></td>
                 <td>{{ movie.director }}</td>
+                <td><a href="http://www.imdb.com/title/{{movie.imdbId}}/">{{ movie.imdbId }}</a></td>
             </tr>
         {% endfor %}
     </tbody>

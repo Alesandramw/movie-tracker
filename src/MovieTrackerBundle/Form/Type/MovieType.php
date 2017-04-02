@@ -33,7 +33,7 @@ class MovieType extends AbstractType
                 TextType::class,
                 array(
                     'label' => 'Director',
-                    'required' => true
+                    'required' => false
                 )
             )
             ->add(
@@ -57,8 +57,19 @@ class MovieType extends AbstractType
             )
             ->add(
                 'thoughts',
-                TextareaType::class
+                TextareaType::class,
+                array(
+                    'required' => false
+                )
             )
+            ->add(
+                'imdbId',
+                TextType::class,
+                array(
+                    'required' => false,
+                    'label' => 'IMDB ID'
+                    )
+                )
             ->add(
                 'submit',
                 SubmitType::class,
