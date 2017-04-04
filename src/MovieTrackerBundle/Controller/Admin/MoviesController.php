@@ -51,7 +51,7 @@ class MoviesController extends Controller
      */
     public function manageAction(Request $request)
     {
-        $movies = $this->getDoctrine()->getManager()->getRepository('MovieTracker:Movie')->findAll();
+        $movies = $this->getDoctrine()->getManager()->getRepository('MovieTracker:Movie')->findBy(array(), array('date' => 'DESC'));
 
         return array(
             'movies' => $movies

@@ -71,6 +71,22 @@ class MovieType extends AbstractType
                     )
                 )
             ->add(
+                'poster',
+                TextType::class,
+                array(
+                    'required' => false,
+                    'label' => 'Poster'
+                    )
+                )
+            ->add(
+                'favorite',
+                TextType::class,
+                array(
+                    'required' => false,
+                    'label' => 'Favorite'
+                    )
+                )
+            ->add(
                 'submit',
                 SubmitType::class,
                 array(

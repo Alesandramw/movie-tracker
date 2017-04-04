@@ -48,6 +48,16 @@ class Movie
     private $imdbId;
 
     /**
+    * @ORM\Column(name="poster", type="string", length=255)
+    */
+    private $poster;
+
+    /**
+    * @ORM\Column(name="favorite", type="boolean")
+    */
+    private $favorite;
+
+    /**
      * Get id
      *
      * @return integer
@@ -216,5 +226,53 @@ class Movie
     public function getImdbId()
     {
         return $this->imdbId;
+    }
+
+    /**
+     * Set poster
+     *
+     * @param string $poster
+     *
+     * @return Movie
+     */
+    public function setPoster($poster)
+    {
+        $this->poster = $poster;
+
+        return $this;
+    }
+
+    /**
+     * Get poster
+     *
+     * @return string
+     */
+    public function getPoster()
+    {
+        return $this->poster;
+    }
+
+    /**
+     * Set favorite
+     *
+     * @param boolean $favorite
+     *
+     * @return Movie
+     */
+    public function setFavorite($favorite)
+    {
+        $this->favorite = $favorite;
+
+        return $this;
+    }
+
+    /**
+     * Get favorite
+     *
+     * @return boolean
+     */
+    public function getFavorite()
+    {
+        return $this->favorite;
     }
 }

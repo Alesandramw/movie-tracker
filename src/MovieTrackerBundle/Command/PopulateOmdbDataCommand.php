@@ -39,17 +39,17 @@ class PopulateOmdbDataCommand extends ContainerAwareCommand
             $output->writeln($response->getBody()->getContents());
 
             $data = json_decode($response->getBody(), true);
-            $output->writeln(sprintf('The movie title is %s', $data['Title']));
-            $output->writeln(sprintf('The movie\'s director is %s', $data['Director']));
-            $output->writeln(sprintf('Some actors in the movie are %s', $data['Actors']));
             if ($movie->getDirector() == null)
             {
-                $output->writeln(sprintf('No director.'));
                 $movie->setDirector($data['Director']);
             }
-            else
+            if ($movie->getImdbId() == null)
             {
                 $movie->setImdbId($data['imdbID']);
+            }
+            if ($movie->getPoster() == null)
+            {
+                $movie->setPoster($data['Poster']);
             }
 
         }
