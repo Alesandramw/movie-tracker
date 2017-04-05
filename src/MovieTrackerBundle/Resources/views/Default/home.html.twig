@@ -41,12 +41,18 @@
 
 <div class="container-fluid">
         {% for movie in movies %}
-            {% if (loop.index % 5) == 1 %}
+             {% if (loop.index % 5) == 1 %}
                 <div class="row">
-                    <div class="col-md-2 col-md-offset-1"><div class="poster" style="background-image: url('{{ movie.poster }}');"></div></div>
-            {% else %}
-                <div class="col-md-2"><div class="poster" style="background-image: url('{{ movie.poster }}');"></div></div>
             {% endif %}
+                <div class="col-md-2{% if (loop.index % 5) == 1 %} col-md-offset-1{% endif %}">
+                    <div class="poster" style="background-image: url('{{ movie.poster }}');">
+                        {% if movie.favorite %}
+                            <img class="favoriteicon" src="http://findicons.com/files/icons/1729/openworld/48/star.png">
+                        {% endif %}
+                        <p class="text">Rating: {{ movie.rating }}
+                            <br>{{ movie.date|date('m-d-Y') }}</p>
+                    </div>
+                </div>
             {% if (loop.index % 5) == 0 %}
                 </div>
             {% endif %}
@@ -55,17 +61,39 @@
 
 <style>
 
+.poster .favoriteicon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
 .poster {
+    position: relative;
     width: 300px;
     height: 444px;
     background-position: 50% 50%;
     background-repeat: no-repeat;
+    float: left;
     background-size: cover;
+}
+
+p.text {
+    color: red;
+    height: 444px;
+    position: absolute;
+    width: 300px;
+}
+
+.poster:hover p.text {
+    visibility:visible;
+    opacity: 1;
 }
 
 .row {
     margin-top: 30px;
 }
+
+
 
 </style>
 <!-- <table class="table table-striped">

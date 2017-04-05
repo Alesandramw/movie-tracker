@@ -6,6 +6,7 @@ use MovieTrackerBundle\Form\Extension\Type\DeleteType;
 use MovieTrackerBundle\ORM\Model\Movie;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -25,7 +26,7 @@ class MovieType extends AbstractType
                 TextType::class,
                 array(
                     'label' => 'Title',
-                    'required' => true
+                    'required' => false
                 )
             )
             ->add(
@@ -80,7 +81,7 @@ class MovieType extends AbstractType
                 )
             ->add(
                 'favorite',
-                TextType::class,
+                CheckboxType::class,
                 array(
                     'required' => false,
                     'label' => 'Favorite'

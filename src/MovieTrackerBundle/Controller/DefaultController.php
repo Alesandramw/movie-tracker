@@ -20,7 +20,7 @@ class DefaultController extends Controller
     {
         if ($year != '')
         {
-            $movies = $this->getDoctrine()->getManager()->createQuery(sprintf("SELECT m FROM MovieTracker:Movie m WHERE m.date >= '%d-01-01' AND m.date <= '%d-12-31'", $year, $year))->getResult();
+            $movies = $this->getDoctrine()->getManager()->createQuery(sprintf("SELECT m FROM MovieTracker:Movie m WHERE m.date >'2017-01-01' AND m.date <= '2017-12-31' ORDER BY m.date DESC", $year, $year))->getResult();
         }
         else
         {

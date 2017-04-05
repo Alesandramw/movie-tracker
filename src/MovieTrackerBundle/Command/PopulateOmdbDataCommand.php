@@ -22,18 +22,20 @@ class PopulateOmdbDataCommand extends ContainerAwareCommand
         $entityManager = $this->getContainer()->get('doctrine')->getManager();
 
         // get all of the movies in the database ordered by date ascending, so oldest first
-        $movies = $entityManager->getRepository('MovieTracker:Movie')->findBy(array(), array('date' => 'ASC'));
-
-        // this is now the first movie
-        $movie = $movies[0];
+        $movies = $entityManager->getRepository('MovieTracker:Movie')->findBy(array(), array('date' => 'DESC'));
 
         $client = new Client();
 
         foreach ($movies as $key => $movie) {
+            if ($key > 10)
+            {
+                break;
+            }
+
             $output->writeln(sprintf($movie->getTitle()));
 
             $response = $client->request('GET', 'http://www.omdbapi.com', array(
-                'query' => array('t' => $movie->getTitle())
+                'query' => array('i' => $movie->getImdbId())
             ));
 
             $output->writeln($response->getBody()->getContents());
@@ -42,6 +44,10 @@ class PopulateOmdbDataCommand extends ContainerAwareCommand
             if ($movie->getDirector() == null)
             {
                 $movie->setDirector($data['Director']);
+            }
+            if ($movie->getTitle() == null)
+            {
+                $movie->setTitle($data['Title']);
             }
             if ($movie->getImdbId() == null)
             {

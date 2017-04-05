@@ -18,12 +18,12 @@ class Movie
     private $id;
 
     /**
-     * @ORM\Column(name="title", type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
      */
     private $title;
 
     /**
-     * @ORM\Column(name="director", type="string", length=255)
+     * @ORM\Column(name="director", type="string", length=255, nullable=true)
      */
     private $director;
 
@@ -48,12 +48,12 @@ class Movie
     private $imdbId;
 
     /**
-    * @ORM\Column(name="poster", type="string", length=255)
+    * @ORM\Column(name="poster", type="string", length=255, nullable=true)
     */
     private $poster;
 
     /**
-    * @ORM\Column(name="favorite", type="boolean")
+    * @ORM\Column(name="favorite", type="boolean", nullable=true)
     */
     private $favorite;
 
@@ -196,7 +196,7 @@ class Movie
     {
         $ratings = array();
 
-        for ($i = 10; $i > 5; $i -= 0.5)
+        for ($i = 1; $i <= 5; $i += 1)
         {
             $ratings[] = $i;
         }
